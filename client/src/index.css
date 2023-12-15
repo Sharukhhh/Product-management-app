@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+    --custom-blue: #001f3f;
+    --custom-amber: #F59E0B;
+  }
