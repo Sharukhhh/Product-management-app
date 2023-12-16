@@ -1,7 +1,23 @@
 import React from 'react';
 import { FaCartArrowDown } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../Redux/userSlice';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const NavBar = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const user = useSelector((state) => state.user.userCredentials);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/login');
+        toast.success('Thank you')
+    }
+
   return (
     <>
         <nav className='bg-custom-blue p-4'>
@@ -19,8 +35,9 @@ const NavBar = () => {
                 <div className='flex items-center mt-4 md:mt-0 space-x-4'>
                     <FaCartArrowDown className="text-white text-2xl" />
 
-                    <span className='text-white'>John Doe</span>
-                    <button className='text-white hover:underline'>Logout</button>
+                    <span className='text-white'>{user?.name}</span>
+                    <button onClick={handleLogout}
+                    className='text-white hover:underline'>Logout</button>
                 </div>
             </div>
         </nav>

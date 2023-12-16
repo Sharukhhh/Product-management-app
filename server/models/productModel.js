@@ -15,7 +15,7 @@ const productSchema = mongoose.Schema({
         required : true
     },
 
-    specification : {
+    ramSize : {
         type : String,
         required : true
     },
@@ -35,7 +35,9 @@ const productSchema = mongoose.Schema({
         ref : 'sub categories'
     },
 
-    images : []
+    images : [{
+        type : String,
+    }]
 
 }, {timestamps : true});
 

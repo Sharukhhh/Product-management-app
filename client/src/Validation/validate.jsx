@@ -13,3 +13,5 @@ export const validateLoginSchema = yup.object().shape({
     password : yup.string().min(5, 'Password must be atleast 6 characters')
     .required('Password is required')
 })
+
+

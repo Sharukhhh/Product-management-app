@@ -2,16 +2,37 @@ import React from 'react';
 import IntroText from '../Components/IntroText';
 import { useFormik } from 'formik';
 import { validateLoginSchema } from '../Validation/validate';
+import toast from 'react-hot-toast';
+import { axios } from '../../Api/axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../Redux/userSlice';
+
 
 const Login = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues : {
             email : '' , password : ''
         },
         validationSchema : validateLoginSchema,
-        onSubmit : (values) => {
-            console.log(values);
+        onSubmit : async (values) => {
+            try {
+                const response = await axios.post('/auth/login' , values);
+
+                if(response.data.message){
+                    toast.success(response.data.message);
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 2000);
+                    dispatch(setUserData(response.data.user))
+                }
+            } catch (error) {
+                toast.error(error.response.data.error || error.message || 'An error occured');
+            }
         }
     })
   return (
@@ -26,7 +47,7 @@ const Login = () => {
 
                     <form onSubmit={formik.handleSubmit}>
                         <div className='mb-4'>
-                            <input type="email" name="email" id="" placeholder='Email'
+                            <input type="email" name="email" id="email" placeholder='Email'
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -40,7 +61,7 @@ const Login = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <input type="password" name="password" id="" placeholder='Password'
+                            <input type="password" name="password" id="password" placeholder='Password'
                             value={formik.values.password}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}

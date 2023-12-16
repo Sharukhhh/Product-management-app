@@ -5,6 +5,7 @@ dotenv.config();
 import morgan from 'morgan';
 import { connectToDatabase } from './connections/database.js';
 import authRoutes from './routes/authRoutes.js'
+import productRoutes from './routes/productRoutes.js';
 import cors from 'cors';
 
 
@@ -17,11 +18,13 @@ app.use(cors(corsOptions));
 
 
 // app.use(express.static());
+app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
 app.use(morgan('dev'));
 
-app.use('/auth' , authRoutes);
+app.use('/api/auth' , authRoutes);
+app.use('/api' , productRoutes);
 
 
 // call to connect to databse
@@ -29,7 +32,7 @@ connectToDatabase();
 
 
 
-const port  = process.env.PORTNUMBER || 6000;
+const port  = process.env.PORTNUMBER || 4000;
 
 app.listen(port , () => {
     console.log(`Server running successfully on http://localhost:${port}`);

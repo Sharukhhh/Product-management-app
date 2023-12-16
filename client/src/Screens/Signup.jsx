@@ -2,16 +2,31 @@ import React from 'react';
 import IntroText from '../Components/IntroText';
 import { useFormik } from 'formik';
 import { validateSignupSchema } from '../Validation/validate';
+import {axios} from '../../Api/axios';
+import {toast} from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+    
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues : {
             name : '', email : '' , password : ''
         },
         validationSchema : validateSignupSchema,
-        onSubmit : (values) => {
-            console.log(values);
+        onSubmit : async (values) => {
+            try {
+                const response = await axios.post('/auth/register', values)
+            
+                if(response.data.message){
+                    navigate('/login');
+                    toast.success(response.data.message);
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error(error.response.data.error || error.message || 'An error occured');
+            }
         }
     })
   return (
@@ -40,7 +55,7 @@ const Signup = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <input type="email" name="email" id="" placeholder='Email'
+                            <input type="email" name="email" id="email" placeholder='Email'
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -54,7 +69,7 @@ const Signup = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <input type="password" name="password" id="" placeholder='Password'
+                            <input type="password" name="password" id="password" placeholder='Password'
                             value={formik.values.password}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}

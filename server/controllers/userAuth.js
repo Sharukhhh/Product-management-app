@@ -8,8 +8,10 @@ ROUTE : /register
 */
 export const registerUser = async (req, res) => {
     try {
-        
+
         const {name , email , password} = req.body;
+
+        console.log(name, email , password, '$')
 
         if(name && email && password){
 
@@ -27,7 +29,7 @@ export const registerUser = async (req, res) => {
                 password : securedPassword
             });
 
-            return res.json({message : 'Account Created!'});
+            return res.status(201).json({message : 'Account Created!'});
         }
 
     } catch (error) {

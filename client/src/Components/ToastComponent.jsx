@@ -9,14 +9,14 @@ const ToastComponent = () => {
         toastOptions={{
             duration : 3000,
             iconTheme : {
-                primary: '#713200',
+                primary: '#001f3f',
                 secondary: '#FFFAEE',
             },
 
             style : {
-                border: '1px solid #713200',
+                border: '1px solid #001f3f',
                 padding: '16px',
-                color: '#713200',
+                color: '#001f3f',
             }
         }}/>
     </>
