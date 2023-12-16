@@ -14,4 +14,10 @@ export const validateLoginSchema = yup.object().shape({
     .required('Password is required')
 })
 
-
+export const productValidateSchema = yup.object().shape({
+    productName : yup.string().required('Name is required'),
+    ramSize : yup.string().required('Specification is required'),
+    stock : yup.number().integer().positive('Negative values not allowed').required('Stock is required'),
+    price : yup.string().required('Price is required'),
+    description : yup.string().required('Description is required')
+})

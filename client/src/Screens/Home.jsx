@@ -1,7 +1,7 @@
 import React, { useState , lazy , Suspense, useEffect} from 'react';
 import NavBar from '../Components/NavBar';
 import Breadcrumbs from '../Components/Breadcrumbs';
-import { getMainCategories } from '../calls/apiCalls';
+import { getMainCategories, getSubCategories } from '../calls/apiCalls';
 
 const Modal = lazy(() => import('../Components/Modal'));
 const ProductModal = lazy(() => import('../Components/ProductModal'));
@@ -12,6 +12,7 @@ const Home = () => {
   const [isSubCategoryModal , setIsSubCategoryModalOpen] = useState(false);
   const [productModal , setProductModal] = useState(false);
   const [categories , setCategories] = useState([]);
+  const [subCategories , setSubCategories] = useState([]);
 
   useEffect(() => {
     const fetchMainCategories = async () => {
@@ -26,6 +27,21 @@ const Home = () => {
     }
 
     fetchMainCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetcSubCategories = async () => {
+      try {
+        const response = await getSubCategories();
+        if(response){
+          setSubCategories(response);
+        }
+      } catch (error) {
+
+      }
+    }
+
+    fetcSubCategories();
   }, []);
 
 
@@ -191,6 +207,7 @@ const Home = () => {
           <Suspense fallback={<div>Loading....</div>}>
             <ProductModal
             onClose={closeProductModal}
+            subCategoriess={subCategories}
             />
           </Suspense>
         )}

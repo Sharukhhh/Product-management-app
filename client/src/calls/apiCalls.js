@@ -40,6 +40,8 @@ export const getSubCategories = async () => {
     try {
         const response = await axios.get('/subcategories')
 
+        console.log(response);
+
         return response.data.subcategories;
 
     } catch (error) {

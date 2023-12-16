@@ -63,8 +63,6 @@ export const createSubCategory = async (req, res) => {
         
         const { subCategory,  selectedMainCategory } = subCategoryData;
 
-        console.log(subCategory , selectedMainCategory , '@@@')
-
         if(subCategory && selectedMainCategory){
 
             let subCategoryExists = await subCategoryModel.findOne({subcategoryName : subCategory});
@@ -100,7 +98,16 @@ ROUTE : /subcategories
 */
 export const displaySubCategories = async (req, res) => {
     try {
-        const subcategories = await subCategoryModel.find();
+
+        const requiredCategoryName = 'Laptop';
+
+        const mainCategory = await categoryModel.findOne({categoryName : requiredCategoryName});
+
+        if(!mainCategory){
+            return res.status(404).json({error : 'Not found'});
+        }
+
+        const subcategories = await subCategoryModel.find({mainCategory : mainCategory._id });
 
         if(!subcategories){
             return res.status(404).json({error : 'No sub categories found'})
