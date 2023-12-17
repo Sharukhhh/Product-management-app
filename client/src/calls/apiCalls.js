@@ -40,10 +40,30 @@ export const getSubCategories = async () => {
     try {
         const response = await axios.get('/subcategories')
 
-        console.log(response);
-
         return response.data.subcategories;
 
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+export const getProducts = async () => {
+    try {
+        const response = await axios.get('/products');
+
+        return response.data.products;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+export const getSingleProduct = async (productId) => {
+    try {
+        const response = await axios.get(`/single/${productId}`)
+
+        return response.data.product;
     } catch (error) {
         throw error;
     }

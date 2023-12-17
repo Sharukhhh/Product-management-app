@@ -1,12 +1,17 @@
 import express from 'express';
 const app = express();
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import {dirname , join }   from 'path';
 dotenv.config();
 import morgan from 'morgan';
 import { connectToDatabase } from './connections/database.js';
 import authRoutes from './routes/authRoutes.js'
 import productRoutes from './routes/productRoutes.js';
 import cors from 'cors';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 const corsOptions = {
@@ -17,7 +22,7 @@ app.use(cors(corsOptions));
 
 
 
-// app.use(express.static());
+app.use('/uploads', express.static(join(__dirname, 'uploads')))
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 

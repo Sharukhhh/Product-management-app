@@ -19,7 +19,7 @@ function App() {
 
         <Route element={<PrivateRoutes/>}>
           <Route path='/home' element={<Home/>} />
-          <Route path='/product' element={<Product/>} />
+          <Route path='/product/:id' element={<Product/>} />
         </Route>
       </Routes>
     </>

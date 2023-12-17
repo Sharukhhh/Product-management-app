@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { axios } from "../../Api/axios"
 
-const Modal = ({title , onClose, categoriess ,  isSubCategory}) => {
+const Modal = ({title , onClose, categoriess ,  isSubCategory , handleUpdateUI}) => {
 
     const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const Modal = ({title , onClose, categoriess ,  isSubCategory}) => {
 
             if(response.message){
                 setMainCategory('');
+                handleUpdateUI((prev) => !prev);
                 onClose();
                 toast.success(response.message);
             }
@@ -53,6 +54,7 @@ const Modal = ({title , onClose, categoriess ,  isSubCategory}) => {
 
             if(response.message){
                 setSelectedMainCategory('');
+                handleUpdateUI((prev) => !prev);
                 onClose()
                 toast.success(response.message);
             }

@@ -4,21 +4,36 @@ import { productValidateSchema } from '../Validation/validate'
 import {useDropzone} from 'react-dropzone';
 import { axios } from '../../Api/axios';
 import toast from 'react-hot-toast';
+import { getSingleProduct } from '../calls/apiCalls';
 
-const ProductModal = ({onClose , subCategoriess}) => {
+const ProductModal = ({onClose , subCategoriess , handleUpdateUI , editId}) => {
 
     const [subCategories , setSubCategories] = useState([]);
+    const [editDetails, setEditDetails] = useState(null);
 
     useEffect(() => {
         setSubCategories(subCategoriess)
-    }, [subCategoriess])
+    }, [subCategoriess ])
+
+    useEffect(() => {
+        const getEditProdcutDetails = async () => {
+            if(editId){
+                const response = await getSingleProduct(editId);
+                setEditDetails(response);
+            }
+        }
+        getEditProdcutDetails();
+
+    }, [editId]);
 
     const formik = useFormik({
         initialValues : {
-            productName : '' , ramSize: '',
-            stock : 0 , price  : '',
-            description : '' ,
-            subCategory : '',
+            productName : editDetails?.productName || '' , 
+            ramSize: editDetails?.ramSize || '',
+            stock : editDetails?.stock || 0 , 
+            price  : editDetails?.price || '',
+            description : editDetails?.description || '' ,
+            subCategory : editDetails?.subCategory || '',
             images : []
         },
         validationSchema : productValidateSchema,
@@ -43,6 +58,7 @@ const ProductModal = ({onClose , subCategoriess}) => {
                 console.log(response);
 
                 if(response.data.message){
+                    handleUpdateUI((prev) => !prev);
                     onClose();
                     toast.success(response.data.message);
                 }
@@ -165,7 +181,7 @@ const ProductModal = ({onClose , subCategoriess}) => {
                                 className='mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
                                 >
                                     <option value=''>Select Subcategory</option>
-                                    {subCategories.map((sub) => (
+                                    {subCategories?.map((sub) => (
                                         <option key={sub?._id} value={sub?._id}>{sub?.subcategoryName}</option>
                                     ))}
                                     
@@ -227,7 +243,7 @@ const ProductModal = ({onClose , subCategoriess}) => {
                             <button type='submit'
                             className='inline-flex justify-center px-4 py-2 mr-3 text-sm font-medium text-white rounded-md
                             bg-custom-amber border border-transparent rounded-mdfocus:outline-none focus:ring-2 focus:ring-offset-2'>
-                                SAVE
+                                {editId ? 'UPDATE' : 'SAVE'}
                             </button>
 
                             <button type='button' onClick={onClose}
