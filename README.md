@@ -6,7 +6,7 @@ Nodejs, Expressjs and MongoDB for Backend.
 Followed MVC Architecture. Two Major directories, client and server.
 
 To run application: 
- direct to server directory and provide command: npm start
- direct to client directory and provide command: npm run dev
+ direct to server directory and provide command: npm start.
+ direct to client directory and provide command: npm run dev.
 
 Thank you!
