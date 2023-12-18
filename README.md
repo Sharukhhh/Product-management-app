@@ -1,4 +1,4 @@
-# # # This is a Product Management Web application developed using MERN. 
+# # # A Product Management Web application developed using MERN. 
 
 User can register an account and login to the apllication and can do product management.
 
