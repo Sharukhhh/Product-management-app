@@ -20,7 +20,7 @@ export const addNewProduct = async (req, res) => {
         let imagePaths = [];
 
         if(images){
-            console.log('ivide');
+
             images.forEach((image) => {
                 const imagePath =  image.filename;
                 imagePaths.push(imagePath);

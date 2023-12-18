@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { addMainCategory, addSubCategory } from '../calls/apiCalls';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { axios } from "../../Api/axios"
+import { axios } from "../../Api/axios"; 
 
-const Modal = ({title , onClose, categoriess ,  isSubCategory , handleUpdateUI}) => {
+const Modal = ({title , onClose, categoriess ,  isSubCategory , handleUpdateUI , updateUI}) => {
 
     const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ const Modal = ({title , onClose, categoriess ,  isSubCategory , handleUpdateUI})
 
     useEffect(() => {
         setCategories(categoriess);
-    } , [categoriess])
+    } , [categoriess , updateUI])
 
     //to submit main category form
     const handleCategorySubmit = async (e) => {

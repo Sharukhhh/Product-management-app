@@ -218,6 +218,7 @@ const Home = () => {
             isSubCategory={true}
             categoriess={categories}
             handleUpdateUI={setUpdateUI}
+            updateUI={updateUI}
             />
           </Suspense>
         )}

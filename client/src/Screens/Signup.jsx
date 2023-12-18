@@ -35,7 +35,7 @@ const Signup = () => {
 
             <IntroText isSignup={true} />
 
-            <div className='md:w-1/2 flex items-center justify-center p-8 shadow-md  bg-neutral-100'>
+            <div className='md:w-1/2 flex items-center justify-center  shadow-md  bg-neutral-100'>
                 <div className='w-full md:w-2/3'>
                     <h2 className='text-3xl text-amber-500 font-bold mb-8'>Create Account</h2>
 
